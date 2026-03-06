@@ -5,8 +5,8 @@ package model;
  */
 public class Payment {
     private final int paymentId;
-    private int rentalId;
-    private int custId;
+    private final int rentalId;
+    private final int custId;
     private double amount;
     private String paymentMethod;
     private String status;

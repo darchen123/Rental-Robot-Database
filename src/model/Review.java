@@ -5,7 +5,7 @@ package model;
  */
 public class Review {
     private final int reviewId;
-    private int custId;
+    private final int custId;
     private int rating;
     private String comments;
     private String date;
