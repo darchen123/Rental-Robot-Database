@@ -5,12 +5,12 @@ package model;
  */
 public class Rental {
     private final int rentalId;
-    private int robotId;
-    private int custId;
-    private String startDate;
+    private final int robotId;
+    private final int custId;
+    private final String startDate;
     private String endDate;
     private double rentalFee;
-    private String dueDate;
+    private final String dueDate;
 
     public Rental(int rentalId, int robotId, int custId, String startDate,
                   String endDate, double rentalFee, String dueDate) {

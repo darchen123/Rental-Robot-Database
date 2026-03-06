@@ -6,7 +6,7 @@ package model;
 
 public class InternalOrderRequest {
     private final int orderId;
-    private int facilityId;
+    private final int facilityId;
     private String assetType;
     private int quantity;
     private double value;

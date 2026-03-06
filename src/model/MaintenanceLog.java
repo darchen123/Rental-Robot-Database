@@ -5,8 +5,8 @@ package model;
  */
 public class MaintenanceLog {
     private final int maintenanceLogId;
-    private String staffSSN;
-    private int assetId;
+    private final String staffSSN;
+    private final int assetId;
     private String type;
     private String dateIn;
     private String dateOut;

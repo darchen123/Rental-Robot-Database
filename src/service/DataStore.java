@@ -1,26 +1,25 @@
 package service;
 
-import model.*;
-
 import java.util.ArrayList;
 import java.util.List;
+import model.*;
 
 /**
  * Holds all data in memory using ArrayLists.
  */
 public class DataStore {
-    private List<Facility> facilities = new ArrayList<>();
-    private List<Customer> customers = new ArrayList<>();
-    private List<Robot> robots = new ArrayList<>();
-    private List<DriverlessVehicle> vehicles = new ArrayList<>();
-    private List<Rental> rentals = new ArrayList<>();
-    private List<Staff> staff = new ArrayList<>();
-    private List<Payment> payments = new ArrayList<>();
-    private List<Review> reviews = new ArrayList<>();
-    private List<MaintenanceLog> maintenanceLogs = new ArrayList<>();
-    private List<InternalOrderRequest> orderRequests = new ArrayList<>();
-    private List<Delivers> delivers = new ArrayList<>();
-    private List<Returns> returns = new ArrayList<>();
+    private final List<Facility> facilities = new ArrayList<>();
+    private final List<Customer> customers = new ArrayList<>();
+    private final List<Robot> robots = new ArrayList<>();
+    private final List<DriverlessVehicle> vehicles = new ArrayList<>();
+    private final List<Rental> rentals = new ArrayList<>();
+    private final List<Staff> staff = new ArrayList<>();
+    private final List<Payment> payments = new ArrayList<>();
+    private final List<Review> reviews = new ArrayList<>();
+    private final List<MaintenanceLog> maintenanceLogs = new ArrayList<>();
+    private final List<InternalOrderRequest> orderRequests = new ArrayList<>();
+    private final List<Delivers> delivers = new ArrayList<>();
+    private final List<Returns> returns = new ArrayList<>();
 
     private int nextFacId = 1;
     private int nextCustId = 1;
