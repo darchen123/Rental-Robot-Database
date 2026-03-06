@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Central data store for all entities. Uses ArrayLists to hold data in memory.
+ * Holds all data in memory using ArrayLists.
  */
 public class DataStore {
     private List<Facility> facilities = new ArrayList<>();

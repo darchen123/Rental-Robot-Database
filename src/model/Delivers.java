@@ -1,7 +1,7 @@
 package model;
 
 /**
- * Junction entity for robot delivery events.
+ * Tracks robot delivery events.
  */
 
 public class Delivers {

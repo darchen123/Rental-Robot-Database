@@ -1,7 +1,7 @@
 package model;
 
 /**
- * Super-type for autonomous assets (Robot and Driverless_Vehicle).
+ * Base class for Robot and DriverlessVehicle.
  */
 public abstract class AutonomousAsset {
     private final int assetId;

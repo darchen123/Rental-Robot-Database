@@ -6,8 +6,6 @@ import java.util.Scanner;
 
 /**
  * Rental Home Robot Database System - Text-based interface for warehouse staff.
- * Checkpoint 2: In-memory data storage (no database).
- * Attributes match ER diagram.
  */
 public class Main {
     private static DataStore dataStore;

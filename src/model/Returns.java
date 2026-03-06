@@ -1,7 +1,7 @@
 package model;
 
 /**
- * Junction entity for robot return events.
+ * Tracks robot return/pickup events.
  */
 public class Returns {
     private final int robotId;
