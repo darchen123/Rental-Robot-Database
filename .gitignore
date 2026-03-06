@@ -1,0 +1,17 @@
+# Compiled class files
+out/
+*.class
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Java
+*.jar
+*.war
+*.log
