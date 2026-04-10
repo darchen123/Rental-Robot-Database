@@ -1,6 +1,8 @@
 import model.*;
 import service.DataStore;
-
+import java.sql.ResultSet;
+import java.sql.DriverManager;
+import java.sql.Connection;
 import java.util.List;
 import java.util.Scanner;
 
@@ -493,19 +495,29 @@ public class Main {
     }
 
     // ==================== USEFUL REPORTS (Menu only) ====================
+    //updated useful reports for checkpoint 4
     private static void usefulReportsMenu() {
-        System.out.println("--- USEFUL REPORTS (Not implemented yet) ---");
-        System.out.println("1. Robots in field vs total inventory");
-        System.out.println("2. Customers with overdue rentals");
-        System.out.println("3. Maintenance due by asset");
-        System.out.println("4. Revenue by facility");
-        System.out.println("5. Low-rated robots with comments");
-        System.out.println("0. Back");
-        int choice = readInt("Choice: ");
-        if (choice >= 1 && choice <= 5) {
-            System.out.println("Report functionality will be implemented in a future checkpoint.");
-        }
+
+    System.out.println("--- USEFUL REPORTS ---");
+    System.out.println("1. Renting checkouts (by customer)");
+    System.out.println("2. Most popular robot");
+    System.out.println("3. Most popular manufacturer");
+    System.out.println("4. Most used driverless vehicle");
+    System.out.println("5. Top customer (most rentals)");
+    System.out.println("6. Robots by type before year");
+    System.out.println("0. Back");
+
+    int choice = readInt("Choice: ");
+
+    switch (choice) {
+        //case 1 -> reportCustomerRentals();
+        //case 2 -> reportPopularRobot();
+        //case 3 -> reportPopularManufacturer();
+        //case 4 -> reportPopularVehicle();
+        //case 5 -> reportTopCustomer();
+        //case 6 -> reportRobotsByType();
     }
+}
 
     // ==================== HELPERS ====================
     private static String readLine(String prompt) {
@@ -541,4 +553,7 @@ public class Main {
             }
         }
     }
+
+  
+
 }
