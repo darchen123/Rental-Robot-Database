@@ -6,6 +6,7 @@ import db.RobotDao;
 import model.*;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
@@ -556,19 +557,30 @@ public class Main {
         }
     }
 
+    // ==================== USEFUL REPORTS ====================
     private static void usefulReportsMenu() {
-        System.out.println("--- USEFUL REPORTS (implement in next milestone) ---");
-        System.out.println("1. Robots in field vs total inventory");
-        System.out.println("2. Customers with overdue rentals");
-        System.out.println("3. Maintenance due by asset");
-        System.out.println("4. Revenue by facility");
-        System.out.println("5. Low-rated robots with comments");
+
+        System.out.println("--- USEFUL REPORTS ---");
+        System.out.println("1. Renting checkouts (by customer)");
+        System.out.println("2. Most popular robot");
+        System.out.println("3. Most popular manufacturer");
+        System.out.println("4. Most used driverless vehicle");
+        System.out.println("5. Top customer (most rentals)");
+        System.out.println("6. Robots by type before year");
         System.out.println("0. Back");
+
         int choice = readInt("Choice: ");
-        if (choice >= 1 && choice <= 5) {
-            System.out.println("Reports will query the database in the reports checkpoint.");
+
+        switch (choice) {
+            case 1 -> reportCustomerRentals();
+            case 2 -> reportPopularRobot();
+            case 3 -> reportPopularManufacturer();
+            case 4 -> reportPopularVehicle();
+            case 5 -> reportTopCustomer();
+            case 6 -> reportRobotsByType();
         }
-    }
+    }   
+
 
     // ==================== HELPERS ====================
     private static String readLine(String prompt) {
@@ -602,6 +614,147 @@ public class Main {
             } catch (NumberFormatException e) {
                 System.out.println("Please enter a valid number.");
             }
+        }
+    }
+
+     // ==================== USEFUL REPORTS METHODS ====================
+    private static void reportCustomerRentals() {
+        int custId = readInt("Customer ID: ");
+        String sql = """
+            SELECT C_ID, COUNT(*) AS total
+            FROM Rental
+            WHERE C_ID = ?
+            GROUP BY C_ID
+            """;
+        try (Connection conn = Database.getConnection();
+        var ps = conn.prepareStatement(sql)) {
+        ps.setInt(1, custId);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            System.out.println("Customer " + custId +
+                    " total rentals: " + rs.getInt("total"));
+        } else {
+            System.out.println("No rentals found.");
+        }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }   
+    }
+
+    private static void reportPopularRobot() {
+        String sql = """
+            SELECT Rents.Robot_ID, (SUM(JULIANDAY(Rental.End_Date) - JULIANDAY(Rental.Start_Date))) AS rented_time, Count(Rents.Robot_ID) AS rental_count
+	        FROM Rental
+	        JOIN Rents ON Rental.Rental_ID = Rents.Rental_ID
+	        GROUP BY Rents.Robot_ID
+	        ORDER BY rented_time DESC;
+        """;
+    	 try (Connection conn = Database.getConnection();
+             var stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+          if (rs.next()) {
+            System.out.println("Most popular robot ID: " +
+                    rs.getInt("Robot_ID") +
+                    " (" + rs.getInt("rental_count") + " rentals)");
+           }
+    	} catch (Exception e) {
+        	System.out.println(e.getMessage());
+    	}
+	}
+
+    private static void reportPopularManufacturer() {
+    	String sql = """
+       		SELECT AA2.Manufacturer, Count(Rents.Rental_ID) AS total
+		    FROM Autonomous_Asset2 AS AA2
+		    JOIN Autonomous_Asset1 AS AA1 ON AA2.Model = AA1.Model
+		    JOIN Robot ON AA1.Asset_ID = Robot.AA_ID
+		    JOIN Rents ON Robot.AA_ID = Rents.Robot_ID
+		    GROUP BY Manufacturer
+		    ORDER BY total DESC
+		    LIMIT 1
+    	""";
+    	try (Connection conn = Database.getConnection();
+         var stmt = conn.createStatement();
+         ResultSet rs = stmt.executeQuery(sql)) {
+        if (rs.next()) {
+            System.out.println("Top manufacturer: " +
+                    rs.getString("Manufacturer") +
+                    " (" + rs.getInt("total") + " rentals)");
+        }
+    	} catch (Exception e) {
+        	System.out.println(e.getMessage());
+    	}
+	}
+
+    private static void reportPopularVehicle() {
+        String sql = """
+            SELECT d.DV_ID, SUM(c.Fac_Dist) AS total_miles
+            FROM Rental_Delivery AS d
+            JOIN Rents AS r ON d.Robot_ID = r.Robot_ID
+	        JOIN Rental ON r.Rental_ID = Rental.Rental_ID
+            JOIN Customer AS c ON Rental.C_ID = c.Cust_ID
+            GROUP BY d.DV_ID
+            ORDER BY total_miles DESC
+            LIMIT 1
+        """;
+        try (Connection conn = Database.getConnection();
+            var stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql)) {
+            if (rs.next()) {
+                System.out.println("Most used vehicle: DV_ID " +
+                    rs.getInt("DV_ID") +
+                    " (" + rs.getInt("total_miles") + " driven miles)");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }  
+
+    private static void reportTopCustomer() {
+        String sql = """
+            SELECT Customer.Cust_ID, Customer.FName, Customer.LName, COUNT(Rents.Robot_ID) AS Total_Robots_Rented
+	        FROM Customer
+	        JOIN Rental ON Customer.Cust_ID = Rental.C_ID
+	        JOIN Rents ON Rental.Rental_ID=Rents.Rental_ID
+	        GROUP BY Customer.Cust_ID
+	        ORDER BY Total_Robots_Rented DESC
+	        LIMIT 1;
+            """;
+        try (Connection conn = Database.getConnection();
+            var stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql)) {
+            if (rs.next()) {
+                System.out.println("Top customer: " +
+                    rs.getString("FName") + 
+                    rs.getString("LName") +
+                    " (" + rs.getInt("Total_Robots_Rented") + " rentals)");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void reportRobotsByType() {
+        String model = readLine("Enter robot type (model): ");
+        int year = readInt("Show robots released before year: ");
+        String sql = """
+            SELECT COUNT(Model) AS total
+            FROM Autonomous_Asset1
+            WHERE Model = ? AND Year < ?;
+        """;
+        try (Connection conn = Database.getConnection();
+        var ps = conn.prepareStatement(sql)) {
+            ps.setString(1, model);
+            ps.setInt(2, year);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int count = rs.getInt("total");
+                System.out.println("\nRobots of type '" + model +
+                "' released before " + year + ": " + count);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 }
