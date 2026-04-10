@@ -5,7 +5,7 @@ package model;
  */
 public class Robot extends AutonomousAsset {
 
-    private double batteryAutonomy;
+    private int batteryAutonomy;
     private String sensors;
     private String training;
     private String function;
@@ -13,7 +13,7 @@ public class Robot extends AutonomousAsset {
 
     public Robot(int assetId, int facilityId, String warrantyExp, String status,
                  String manufacturer, String model, int manufacturingYear, String serialNo,
-                 String location, Integer orderId, double batteryAutonomy,
+                 String location, Integer orderId, int batteryAutonomy,
                  String sensors, String training, String function, Integer rentalId) {
         super(assetId, facilityId, warrantyExp, status, manufacturer, model, manufacturingYear, serialNo, location, orderId);
         this.batteryAutonomy = batteryAutonomy;
@@ -24,13 +24,13 @@ public class Robot extends AutonomousAsset {
     }
 
     public int getRobotId() { return getAssetId(); }
-    public double getBatteryAutonomy() { return batteryAutonomy; }
+    public int getBatteryAutonomy() { return batteryAutonomy; }
     public String getSensors() { return sensors; }
     public String getTraining() { return training; }
     public String getFunction() { return function; }
     public Integer getRentalId() { return rentalId; }
 
-    public void setBatteryAutonomy(double batteryAutonomy) { this.batteryAutonomy = batteryAutonomy; }
+    public void setBatteryAutonomy(int batteryAutonomy) { this.batteryAutonomy = batteryAutonomy; }
     public void setSensors(String sensors) { this.sensors = sensors; }
     public void setTraining(String training) { this.training = training; }
     public void setFunction(String function) { this.function = function; }

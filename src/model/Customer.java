@@ -12,11 +12,11 @@ public class Customer {
     private String phone;
     private String email;
     private String startDate;
-    private double facilityDistance;
+    private int facilityDistance;
     private String status;
 
     public Customer(int custId, int facilityId, String fName, String lName, String address,
-                    String phone, String email, String startDate, double facilityDistance, String status) {
+                    String phone, String email, String startDate, int facilityDistance, String status) {
         this.custId = custId;
         this.facilityId = facilityId;
         this.fName = fName;
@@ -37,7 +37,7 @@ public class Customer {
     public String getPhone() { return phone; }
     public String getEmail() { return email; }
     public String getStartDate() { return startDate; }
-    public double getFacilityDistance() { return facilityDistance; }
+    public int getFacilityDistance() { return facilityDistance; }
     public String getStatus() { return status; }
 
     public void setFacilityId(int facilityId) { this.facilityId = facilityId; }
@@ -47,7 +47,7 @@ public class Customer {
     public void setPhone(String phone) { this.phone = phone; }
     public void setEmail(String email) { this.email = email; }
     public void setStartDate(String startDate) { this.startDate = startDate; }
-    public void setFacilityDistance(double facilityDistance) { this.facilityDistance = facilityDistance; }
+    public void setFacilityDistance(int facilityDistance) { this.facilityDistance = facilityDistance; }
     public void setStatus(String status) { this.status = status; }
 
     @Override

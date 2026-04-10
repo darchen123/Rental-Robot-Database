@@ -1,3 +1,6 @@
+# SQLite database (optional: commit a starter DB or keep local only)
+data/
+
 # Compiled class files
 out/
 *.class
@@ -11,7 +14,8 @@ out/
 .DS_Store
 Thumbs.db
 
-# Java
+# Java (dependency JARs in lib/ are tracked)
 *.jar
+!lib/**/*.jar
 *.war
 *.log

@@ -3,40 +3,39 @@ package model;
 /**
  * Represents a driverless vehicle used for robot delivery and pickup.
  */
-
 public class DriverlessVehicle extends AutonomousAsset {
 
-    private double distanceAutonomy;
-    private String licencePlate;
-    private double maxSpeed;
-    private double payloadCapacity;
+    private int distanceAutonomy;
+    private String licensePlate;
+    private int maxSpeed;
+    private int payloadCapacity;
 
     public DriverlessVehicle(int assetId, int facilityId, String warrantyExpDate, String status,
                              String manufacturer, String model, int manufacturingYear, String serialNo,
-                             String location, Integer orderId, double distanceAutonomy,
-                             String licencePlate, double maxSpeed, double payloadCapacity) {
+                             String location, Integer orderId, int distanceAutonomy,
+                             String licensePlate, int maxSpeed, int payloadCapacity) {
         super(assetId, facilityId, warrantyExpDate, status, manufacturer, model, manufacturingYear, serialNo, location, orderId);
         this.distanceAutonomy = distanceAutonomy;
-        this.licencePlate = licencePlate;
+        this.licensePlate = licensePlate;
         this.maxSpeed = maxSpeed;
         this.payloadCapacity = payloadCapacity;
     }
 
     public int getVehicleId() { return getAssetId(); }
-    public double getDistanceAutonomy() { return distanceAutonomy; }
-    public String getLicencePlate() { return licencePlate; }
-    public double getMaxSpeed() { return maxSpeed; }
-    public double getPayloadCapacity() { return payloadCapacity; }
+    public int getDistanceAutonomy() { return distanceAutonomy; }
+    public String getLicensePlate() { return licensePlate; }
+    public int getMaxSpeed() { return maxSpeed; }
+    public int getPayloadCapacity() { return payloadCapacity; }
 
-    public void setDistanceAutonomy(double distanceAutonomy) { this.distanceAutonomy = distanceAutonomy; }
-    public void setLicencePlate(String licencePlate) { this.licencePlate = licencePlate; }
-    public void setMaxSpeed(double maxSpeed) { this.maxSpeed = maxSpeed; }
-    public void setPayloadCapacity(double payloadCapacity) { this.payloadCapacity = payloadCapacity; }
+    public void setDistanceAutonomy(int distanceAutonomy) { this.distanceAutonomy = distanceAutonomy; }
+    public void setLicensePlate(String licensePlate) { this.licensePlate = licensePlate; }
+    public void setMaxSpeed(int maxSpeed) { this.maxSpeed = maxSpeed; }
+    public void setPayloadCapacity(int payloadCapacity) { this.payloadCapacity = payloadCapacity; }
 
     @Override
     public String toString() {
         return "Vehicle ID: " + getAssetId() + ", Model: " + getModel() +
-               ", Licence: " + licencePlate + ", Status: " + getStatus() +
+               ", License: " + licensePlate + ", Status: " + getStatus() +
                ", Location: " + getLocation();
     }
 }
